@@ -239,13 +239,14 @@ class SnackbarController {
   Widget _getBodyWidget() {
     return Builder(builder: (_) {
       return MouseRegion(
-        onEnter: (_) => snackbar.onHover?.call(snackbar, SnackHoverState.entered),
+        onEnter: (_) =>
+            snackbar.onHover?.call(snackbar, SnackHoverState.entered),
         onExit: (_) => snackbar.onHover?.call(snackbar, SnackHoverState.exited),
         child: GestureDetector(
-          child: snackbar,
           onTap: snackbar.onTap != null
               ? () => snackbar.onTap?.call(snackbar)
               : null,
+          child: snackbar,
         ),
       );
     });
@@ -346,8 +347,8 @@ class SnackbarController {
     return future;
   }
 
-  static void cancelAllSnackbars() {
-    _snackBarQueue._cancelAllJobs();
+  static Future<void> cancelAllSnackbars() async {
+    await _snackBarQueue._cancelAllJobs();
   }
 
   static Future<void> closeCurrentSnackbar() async {

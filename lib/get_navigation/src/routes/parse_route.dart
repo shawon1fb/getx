@@ -39,7 +39,7 @@ class RouteDecoder {
     }
   }
 
-  List<GetPage>? get currentChildrens => route?.children;
+  List<GetPage>? get currentChildren => route?.children;
 
   Map<String, String> get parameters => pageSettings?.params ?? {};
 
@@ -75,6 +75,10 @@ class RouteDecoder {
 
   @override
   int get hashCode => currentTreeBranch.hashCode ^ pageSettings.hashCode;
+
+  @override
+  String toString() =>
+      'RouteDecoder(currentTreeBranch: $currentTreeBranch, pageSettings: $pageSettings)';
 }
 
 class ParseRouteTree {

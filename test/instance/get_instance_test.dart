@@ -141,7 +141,7 @@ void main() {
   });
 
   test('Get.create with abstract class test', () async {
-    Get.create<Service>(() => Api());
+    Get.spawn<Service>(() => Api());
     final ct1 = Get.find<Service>();
     final ct2 = Get.find<Service>();
     // expect(ct1 is Service, true);
@@ -251,6 +251,19 @@ void main() {
       expect((Get.find<DisposableController>() as Controller).count, 1);
       Get.delete<DisposableController>();
       expect((Get.find<DisposableController>() as Controller).count, 0);
+    });
+  });
+
+  group('Get.findOrNull test', () {
+    tearDown(Get.reset);
+    test('checking results', () async {
+      Get.put<int>(1);
+      int? result = Get.findOrNull<int>();
+      expect(result, 1);
+
+      Get.delete<int>();
+      result = Get.findOrNull<int>();
+      expect(result, null);
     });
   });
 }
